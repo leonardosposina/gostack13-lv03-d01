@@ -44,8 +44,12 @@ const Dashboard: React.FC = () => {
 
       const formattedTransactions: Transaction[] = response.data.transactions.map(
         transaction => {
+          const formattedValue = formatValue(transaction.value);
           // eslint-disable-next-line no-param-reassign
-          transaction.formattedValue = formatValue(transaction.value);
+          transaction.formattedValue =
+            transaction.type === 'income'
+              ? formattedValue
+              : `- ${formattedValue}`;
           // eslint-disable-next-line no-param-reassign
           transaction.formattedDate = formatDate(transaction.created_at);
           return transaction;
