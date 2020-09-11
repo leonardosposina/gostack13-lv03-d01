@@ -109,16 +109,18 @@ const Dashboard: React.FC = () => {
             </thead>
 
             <tbody>
-              {transactions.map(transaction => (
-                <tr key={transaction.id}>
-                  <td className="title">{transaction.title}</td>
-                  <td className={transaction.type}>
-                    {transaction.formattedValue}
-                  </td>
-                  <td>{transaction.category.title}</td>
-                  <td>{transaction.formattedDate}</td>
-                </tr>
-              ))}
+              {transactions
+                .sort(a => (a.type === 'income' ? -1 : 1))
+                .map(transaction => (
+                  <tr key={transaction.id}>
+                    <td className="title">{transaction.title}</td>
+                    <td className={transaction.type}>
+                      {transaction.formattedValue}
+                    </td>
+                    <td>{transaction.category.title}</td>
+                    <td>{transaction.formattedDate}</td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </TableContainer>
